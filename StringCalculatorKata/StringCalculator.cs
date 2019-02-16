@@ -9,12 +9,8 @@ namespace StringCalculatorKata
             if (string.IsNullOrEmpty(numbers))
                 return 0;
 
-            if (numbers.Contains(","))
-            {
-                return numbers.Split(',').Select(n => int.Parse(n)).Sum();
-            }
-
-            return int.Parse(numbers);
+                return numbers.Split(',', '\n')
+                    .Select(n => int.Parse(n)).Sum();
         }
     }
 }

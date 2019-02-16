@@ -40,5 +40,15 @@ namespace StringCalculatorKataTest
 
             Assert.Equal(expected, stringCalculator.Add("1,2,3,4"));
         }
+
+
+        [Fact]
+        public void Add_Method_Must_Handle_New_Lines_Between_Numbers()
+        {
+            var stringCalculator = new StringCalculator();
+            var expected = 10;
+
+            Assert.Equal(expected, stringCalculator.Add("1\n2\n3\n4"));
+        }
     }
 }
