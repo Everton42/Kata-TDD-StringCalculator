@@ -1,3 +1,4 @@
+using System;
 using StringCalculatorKata;
 using Xunit;
 
@@ -30,14 +31,17 @@ namespace StringCalculatorKataTest
         }
 
         [Fact]
-        public void Add_Method_Must_Handle_New_Lines_Between_Numbers()
+        public void Given_New_Line_As_A_Delimiter_Should_Return_The_Sum_Of_All_Numbers()
         {
-            var stringCalculator = new StringCalculator();
-            var expected = 10;
-
-            Assert.Equal(expected, stringCalculator.Add("1\n2\n3\n4"));
+            "1\n2\n3".ShouldCalculateTo(6);
         }
 
+        [Fact]
+        public void Given_Consecutive_Delimiters_Should_Throw_Exception()
+        {
+            Assert.Throws(typeof(ArgumentException), () =>
+             ",,".ShouldCalculateTo(-1));
+        }
     }
     internal static class TestHelper
     {

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace StringCalculatorKata
 {
@@ -8,9 +9,14 @@ namespace StringCalculatorKata
         {
             if (string.IsNullOrEmpty(numbers))
                 return 0;
-
-                return numbers.Split(',', '\n')
-                    .Select(n => int.Parse(n)).Sum();
+            var item = numbers.Split(',', '\n');
+            
+            if (item.Any(x => string.IsNullOrEmpty(x)))
+                throw new ArgumentException();
+            
+                return item
+                    .Select(nmbr => 
+                    int.Parse(nmbr)).Sum();
         }
     }
 }
