@@ -1,5 +1,6 @@
-using System;
+
 using StringCalculatorKata;
+using System;
 using Xunit;
 
 namespace StringCalculatorKataTest
@@ -39,16 +40,38 @@ namespace StringCalculatorKataTest
         [Fact]
         public void Given_Consecutive_Delimiters_Should_Throw_Exception()
         {
-            Assert.Throws(typeof(ArgumentException), () =>
-             ",,".ShouldCalculateTo(-1));
+            Assert.Throws<ArgumentException>(() =>
+             new StringCalculator().Add(",,"));
+        }
+
+        [Fact]
+        public void Given_A_Custom_Delemiter_Definition_Should_Return_The_Sum_Of_All_Numbers()
+        {
+            "//;\n1;3".ShouldCalculateTo(4);
+        }
+
+        [Fact]
+        public void Given_A_Negative_Number_Should_Throw_Exception()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+             new StringCalculator().Add("-1,2"));
+        }
+
+        [Fact]
+        public void Negative_Number_Error_Message_Should_Contain_Negative_Number()
+        {
+            var error = Assert.Throws<ArgumentOutOfRangeException>(() =>
+             new StringCalculator().Add("-1,2"));
+
+             Assert.Contains("-1", error.Message);
         }
     }
-    internal static class TestHelper
+        internal static class TestHelper
     {
         public static void ShouldCalculateTo(this string input, int expected)
         {
-        var item = new StringCalculator();
-        Assert.Equal(expected, item.Add(input));
+            var item = new StringCalculator();
+            Assert.Equal(expected, item.Add(input));
         }
     }
 }
